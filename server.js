@@ -2,13 +2,25 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
-const routes = require("./routes");
+const addevent = require("./routes/addevent");
+const addorganizers = require("./routes/addorganizers");
+const admin = require("./routes/addevent");
 
+const multer = require("multer");
+const path = require("path");
 require("dotenv").config();
 
-mongoose.connect(process.env.MONGODB_URI, {
+const app = express();
+// app.use(express.json());
+
+app.use(express.json())
+app.use(cors());
+app.use(express.urlencoded(({ extended: true })));
+app.use("/images", express.static(path.join(__dirname, "/images")));
+
+mongoose.connect(process.env.MONGODB_URI , {
     dbName: "VALTdatabase",
-});
+}).then(()=>{console.log("Running")}).catch((err)=>{console.log(err)});
 const database = mongoose.connection;
 database.on("error", (error) => {
     console.log(error);
@@ -18,15 +30,25 @@ database.once("connected", () => {
     console.log("Database Connected");
 });
 
-const app = express();
-// app.use(express.json());
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "images");
+    },
+    filename: (req, file, cb) => {
+        cb(null, req.body.name);
+    },
+});
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const upload = multer({ storage: storage });
+app.post("/upload", upload.single("file"), (req, res) => {
+    res.status(200).json("File has been uploaded");
+});
 
-app.use(cors());
 
-app.use("/api", routes);
+
+
+app.use("/", addevent);
+app.use("/org", addorganizers);
 
 const PORT = process.env.PORT || 5000;
 
