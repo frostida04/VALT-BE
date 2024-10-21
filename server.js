@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const addevent = require("./routes/addevent");
 const addorganizers = require("./routes/addorganizers");
 const admin = require("./routes/addevent");
-
+const prevHome = require("./routes/prevHome");
 const multer = require("multer");
 const path = require("path");
 require("dotenv").config();
@@ -49,6 +49,8 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 app.use("/", addevent);
 app.use("/org", addorganizers);
+app.use("/", prevHome);
+
 
 const PORT = process.env.PORT || 5000;
 

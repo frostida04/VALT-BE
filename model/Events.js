@@ -7,7 +7,7 @@ const EventsSchema = new mongoose.Schema({
   logo: {
     type: String
   },
-  date: {
+  date: { 
     type: Date,
   },
   localtime: {
@@ -26,10 +26,10 @@ const EventsSchema = new mongoose.Schema({
     type: String,
   },
   Active: {
-    type: Boolean,
+    type: String,
   },
   On_offline: {
-    type: Boolean,
+    type: String,
   },
   link: {
     type: String,
@@ -77,7 +77,7 @@ const EventsSchema = new mongoose.Schema({
     type: Date,
   },
   offerlocaltime: {
-    type: Date,
+    type: String,
   },
   
 });
