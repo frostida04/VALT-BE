@@ -1,14 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const addevent = require("./routes/addevent");
 const addorganizers = require("./routes/addorganizers");
 const admin = require("./routes/addevent");
 const prevHome = require("./routes/prevHome");
 const prevAdmin = require("./routes/prevAdmin");
 const multer = require("multer");
-const path = require("path");
+
 require("dotenv").config();
 
 const app = express();
@@ -33,7 +33,7 @@ database.once("connected", () => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "images");
+        cb(null, "/images");
     },
     filename: (req, file, cb) => {
         cb(null, req.body.name);
@@ -42,7 +42,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 app.post("/upload", upload.single("file"), (req, res) => {
-    res.status(200).json("File has been uploaded");
+    const imageUrl = `http://localhost:${port}/uploads/${req.file.filename}`;
+    res.status(200).json({imageUrl});
 });
 
 

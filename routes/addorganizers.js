@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Events = require("../model/Events");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcrypt");
+// const jwt = require("jsonwebtoken");
 
 const Organizers = require("../model/Organizer");
 
