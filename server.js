@@ -6,6 +6,7 @@ const addevent = require("./routes/addevent");
 const addorganizers = require("./routes/addorganizers");
 const admin = require("./routes/addevent");
 const prevHome = require("./routes/prevHome");
+const prevAdmin = require("./routes/prevAdmin");
 const multer = require("multer");
 const path = require("path");
 require("dotenv").config();
@@ -48,9 +49,9 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
 
 app.use("/", addevent);
-app.use("/org", addorganizers);
+app.use("/", addorganizers);
 app.use("/", prevHome);
-
+app.use("/", prevAdmin);
 
 const PORT = process.env.PORT || 5000;
 

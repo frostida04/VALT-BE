@@ -4,10 +4,10 @@ const Events = require("../model/Events");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-router.get("/getallevent", async (req, res) => {
+router.get("/getorganizer", async (req, res) => {
 
     try {
-        const cards = await Events.find ();
+        const cards = await Organizers.find ();
         res.status(200).json(cards);
 
     } catch (err) {

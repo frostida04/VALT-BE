@@ -4,13 +4,13 @@ const Events = require("../model/Events");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const Organizer = require("../model/Organizer");
+const Organizers = require("../model/Organizer");
 
 router.post("/addorganizer", async (req, res) => {
   console.log("=========Organizers==========", req.body);
-  const ornagizer = req.body.ornagizer;
-  const Name = req.body.Name;
-  const Surname = req.body.Surname;
+  const organizer = req.body.organizer;
+  const name = req.body.name;
+  const surname = req.body.surname;
   const country = req.body.country;
   const city = req.body.city;
   const telegram = req.body.telegram;
@@ -18,12 +18,12 @@ router.post("/addorganizer", async (req, res) => {
   const email = req.body.email;
   const wallet = req.body.wallet;
   const organizerId = req.body.organizerId;
-
+  const active = true;
   try {
-    const newOrganizer = new Organizer({
-      ornagizer: ornagizer,
-      Name: Name,
-      Surname: Surname,
+    const newOrganizer = new Organizers({
+      organizer: organizer,
+      name: name,
+      surname: surname,
       country: country,
       city: city,
       telegram: telegram,
@@ -31,6 +31,7 @@ router.post("/addorganizer", async (req, res) => {
       email: email,
       wallet: wallet,
       organizerId: organizerId,
+      Active:active,
     });
     await newOrganizer.save();
     return res.status(201).json({ message: "Organizers added successfully" });

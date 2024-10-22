@@ -4,12 +4,10 @@ const OrganizerSchema = new mongoose.Schema({
   organizer: {
     type: String,
   },
-  Name: {
-    required: true,
+  name: {
     type: String
   },
-  Surname: {
-    required: true,
+  surname: {
     type: String,
   },
   country: {
@@ -37,9 +35,11 @@ const OrganizerSchema = new mongoose.Schema({
     type: String,
   },
   organizerId: {
-
     type: String
+  },
+  Active : {
+    type: Boolean
   }
 });
 
-module.exports = Organizer = mongoose.model("Organizers", OrganizerSchema);
+module.exports = Organizers = mongoose.model("Organizers", OrganizerSchema);
